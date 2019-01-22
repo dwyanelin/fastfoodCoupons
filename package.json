@@ -1,0 +1,27 @@
+{
+  "name": "fastfoodCoupons",
+  "version": "0.0.1",
+  "description": "Fastfood coupons, include kfc, pizzahut, etc.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server",
+    "heroku-postbuild": "npm install --prefix client && npm run build --prefix client",
+    "dev": "npm run build --prefix client && node server"
+  },
+  "keywords": [
+    "fastfood",
+    "coupons",
+    "coupon",
+    "kfc",
+    "pizzahut"
+  ],
+  "author": "Dwyane Lin",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4"
+  },
+  "engines": {
+    "node": "10.13.0"
+  }
+}
