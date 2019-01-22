@@ -10,7 +10,7 @@ function App(){
 			<div>
 				<ul>
 					<li>
-						<Link to="/kfc">kfc</Link>
+						<Link to="/">kfc</Link>
 					</li>
 					<li>
 						<Link to="/pizzahut">pizzahut</Link>
@@ -19,7 +19,7 @@ function App(){
 
 				<hr />
 
-				<Route exact path="/kfc" component={kfc} />
+				<Route exact path="/" component={kfc} />
 				<Route path="/pizzahut" component={pizzahut} />
 			</div>
 		</Router>
@@ -65,7 +65,7 @@ class pizzahut extends Component{
 		fetch("/getPizzahutCoupons")
 		.then(res=>res.json())
 		.then(coupons=>this.setState({coupons}))
-		.catch(error=>console.log("App.kfc.componentDidMount.getPizzahutCoupons", error));
+		.catch(error=>console.log("App.pizzahut.componentDidMount.getPizzahutCoupons", error));
 	}
 
 	render(){
