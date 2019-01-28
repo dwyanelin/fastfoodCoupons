@@ -1,7 +1,7 @@
 // /client/App.js
 import React, {Component} from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import { Button } from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody } from 'reactstrap';
 
 //import './css/bootstrap.min.css';
 import './css/fastfoodCoupons.css';
@@ -18,6 +18,11 @@ class App extends Component{
 
 		pizzahutIncludeActive:[false, false, false, false, false, false, false, false],
 		pizzahutExcludeActive:[false, false, false, false, false, false, false, false],
+
+		imgKfc:[],
+		imgPizzahut:[],
+		modalImg:false,
+		imgUrl:"",
 	};
 	kfcNames=["炸雞", "蛋塔", "地瓜球", "漢堡", "雞塊", "雞米花", "薯條", "飲品"];
 	kfcFilterNames=["炸雞", "蛋塔", "瓜球", "堡", "雞塊", "雞米花", "薯", "飲"];
@@ -64,9 +69,16 @@ class App extends Component{
 			this.setState({napoliCouponsShow:napoliCoupons});
 		})
 		.catch(error=>console.log("App.componentDidMount.getNapoliCoupons", error));
+
+		fetch("/getImg")
+		.then(res=>res.json())
+		.then(img=>this.setState({imgKfc:img.imgKfc, imgPizzahut:img.imgPizzahut}))
+		.catch(error=>console.log("App.componentDidMount.getNapoliCoupons", error));
 	}
 
 	render(){
+		const closeBtn=<button className="close" onClick={this.toggleModalImg}>&times;</button>;
+
 		const {
 			kfcCouponsShow,
 			pizzahutCouponsShow,
@@ -75,7 +87,10 @@ class App extends Component{
 			kfcIncludeActive,
 			kfcExcludeActive,
 			pizzahutIncludeActive,
-			pizzahutExcludeActive
+			pizzahutExcludeActive,
+			imgKfc,
+			imgPizzahut,
+			imgUrl,
 		}=this.state;
 
 		return (
@@ -118,7 +133,7 @@ class App extends Component{
 							</div>
 							<div style={{display:"flex", flexWrap:"wrap", justifyContent:"center"}}>
 								{kfcCouponsShow.map((e, i)=>(
-									<div style={{width:330, margin:5, padding:5, border:"1px solid rgba(0,0,0,0.3)", borderRadius:".25rem"}} key={i}>
+									<div style={{width:330, margin:5, padding:5, border:imgKfc[e.code]!==undefined?"1px solid pink":"1px solid rgba(0,0,0,0.3)", borderRadius:".25rem"}} key={i} onClick={()=>imgKfc[e.code]!==undefined&&this.toggleModalImg(imgKfc[e.code])}>
 										<div style={{display:"flex", justifyContent:"space-between"}}>
 											<div style={{display:"flex"}}><div style={{marginRight:10}}>{e.code}</div><div>{e.price}</div></div><div>{e.expireDate}</div>
 										</div>
@@ -154,7 +169,7 @@ class App extends Component{
 							</div>
 							<div style={{display:"flex", flexWrap:"wrap", justifyContent:"center"}}>
 								{pizzahutCouponsShow.map((e, i)=>(
-									<div style={{width:330, margin:5, padding:5, border:"1px solid rgba(0,0,0,0.3)", borderRadius:".25rem"}} key={i}>
+									<div style={{width:330, margin:5, padding:5, border:imgPizzahut[e.code]!==undefined?"1px solid pink":"1px solid rgba(0,0,0,0.3)", borderRadius:".25rem"}} key={i} onClick={()=>imgPizzahut[e.code]!==undefined&&this.toggleModalImg(imgPizzahut[e.code])}>
 										<div style={{display:"flex", justifyContent:"space-between"}}>
 											<div style={{display:"flex"}}><div style={{marginRight:10}}>{e.code}</div><div>{e.price}</div></div><div>{e.expireDate}</div>
 										</div>
@@ -198,10 +213,19 @@ class App extends Component{
 							</div>
 						</div>
 					)}/>
+
+					<Modal isOpen={this.state.modalImg} toggle={this.toggleModalImg} className={"modal-lg"}>
+						<ModalHeader toggle={this.toggleModalImg} close={closeBtn}>優惠券圖片</ModalHeader>
+						<ModalBody>
+							<img src={imgUrl} style={{width:"100%"}}/>
+						</ModalBody>
+					</Modal>
 				</div>
 			</Router>
 		);
 	}
+
+	toggleModalImg=url=>this.setState({imgUrl:url, modalImg:!this.state.modalImg});
 
 	kfcInclude=index=>{//按kfc一定要按紐
 		const {kfcIncludeActive}=this.state;

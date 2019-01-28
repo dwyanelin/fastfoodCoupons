@@ -184,6 +184,50 @@ app.get("/getNapoliCoupons", async (req, res)=>{
 	return res.json(coupons);
 });
 
+app.get("/getImg", async (req, res)=>{
+	let img=await rp(url)
+	.then(body=>{
+		let flagKfc=false;
+		let flagPizzahut=false;
+		let imgKfc=[];
+		let imgPizzahut=[];
+		$("#main-content", body)[0].children.forEach(e=>{
+			if(e.children&&e.children[0].data&&e.children[0].data.includes("imgur")){//pivot=圖片網址
+				if(e.prev.prev.name==="span"&&e.prev.prev.children[0].data.trim()==="肯德基 優惠代碼"){
+					flagKfc=true;//開始抓肯德基圖片
+				}
+				if(e.prev.prev.name==="span"&&e.prev.prev.children[0].data.trim()==="使用悠遊卡/悠遊聯名卡消費優惠"){
+					flagKfc=false;//最後一張肯德基圖片特規，順便特規處理
+					imgKfc[e.prev.prev.children[0].data.trim()]=e.children[0].data.trim();
+				}
+				if(e.prev.prev.name==="span"&&e.prev.prev.children[0].data.trim()==="必勝客 優惠代碼"){
+					flagPizzahut=true;//開始抓必勝客圖片
+				}
+				if(e.prev.prev.name==="span"&&e.prev.prev.children[0].data.trim()==="MOS"){
+					flagPizzahut=false;//停止抓必勝客圖片
+				}
+				let url=e.children[0].data.trim();//刪除前後空白換行
+				if(!url.includes("i.imgur")){
+					url=url.replace("imgur", "i.imgur");//img一致化
+				}
+				if(!url.includes(".jpg")&&!url.includes(".png")){
+					url+=".jpg";//加了才是直接顯示圖片的網址
+				}
+				if(flagKfc&&e.prev.data.trim()!==""){//有code就加到array裡面
+					imgKfc[e.prev.data.trim()]=url.replace("http:", "https:");//統一https
+				}
+				if(flagPizzahut&&e.prev.data.trim()!==""){
+					imgPizzahut[e.prev.data.trim()]=url.replace("http:", "https:");
+				}
+			}
+		});
+		return {imgKfc, imgPizzahut};
+	})
+	.catch(error=>console.log("server.getKfcCoupons.rp", error));
+
+	return res.json(img);
+});
+
 app.get("/*", (req, res)=>res.sendFile('index.html', {root: __dirname+'/client/build/'}));
 
 const port=process.env.PORT||5000;
