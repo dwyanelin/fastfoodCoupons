@@ -189,8 +189,8 @@ app.get("/getImg", async (req, res)=>{
 	.then(body=>{
 		let flagKfc=false;
 		let flagPizzahut=false;
-		let imgKfc=[];
-		let imgPizzahut=[];
+		let imgKfc={};
+		let imgPizzahut={};
 		$("#main-content", body)[0].children.forEach(e=>{
 			if(e.children&&e.children[0].data&&e.children[0].data.includes("imgur")){//pivot=圖片網址
 				if(e.prev.prev.name==="span"&&e.prev.prev.children[0].data.trim()==="肯德基 優惠代碼"){

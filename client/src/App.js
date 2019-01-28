@@ -19,8 +19,8 @@ class App extends Component{
 		pizzahutIncludeActive:[false, false, false, false, false, false, false, false],
 		pizzahutExcludeActive:[false, false, false, false, false, false, false, false],
 
-		imgKfc:[],
-		imgPizzahut:[],
+		imgKfc:{},
+		imgPizzahut:{},
 		modalImg:false,
 		imgUrl:"",
 	};
@@ -73,7 +73,7 @@ class App extends Component{
 		fetch("/getImg")
 		.then(res=>res.json())
 		.then(img=>this.setState({imgKfc:img.imgKfc, imgPizzahut:img.imgPizzahut}))
-		.catch(error=>console.log("App.componentDidMount.getNapoliCoupons", error));
+		.catch(error=>console.log("App.componentDidMount.getImg", error));
 	}
 
 	render(){
