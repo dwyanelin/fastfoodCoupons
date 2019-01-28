@@ -215,7 +215,7 @@ class App extends Component{
 					)}/>
 
 					<Modal isOpen={this.state.modalImg} toggle={this.toggleModalImg} className={"modal-lg"}>
-						<ModalHeader toggle={this.toggleModalImg} close={closeBtn}>優惠券圖片</ModalHeader>
+						<ModalHeader toggle={this.toggleModalImg} close={closeBtn} style={{fontFamily:"Helvetica-W01-Light,微軟正黑體,sans-serif"}}>優惠券圖片</ModalHeader>
 						<ModalBody>
 							<img src={imgUrl} style={{width:"100%"}}/>
 						</ModalBody>
