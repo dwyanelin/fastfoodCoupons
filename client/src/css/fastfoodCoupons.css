@@ -48,8 +48,9 @@ ul{
 	outline:none;
 }
 
-@media(hover:hover){
-	button:hover{
-		background:none;
+@media(hover:on-demand){
+	button{
+		color:#28a745 !important;
+		background:none !important;
 	}
 }
