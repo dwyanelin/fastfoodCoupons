@@ -37,7 +37,7 @@ body{
 }
 
 ul{
-  list-style-type:none;
+	list-style-type:none;
 }
 
 .youtube{
@@ -45,5 +45,11 @@ ul{
 }
 
 *:focus{
-    outline:none;
+	outline:none;
+}
+
+@media(hover:hover){
+	button:hover{
+		background:none;
+	}
 }
