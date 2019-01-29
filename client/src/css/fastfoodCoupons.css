@@ -48,9 +48,23 @@ ul{
 	outline:none;
 }
 
-@media(hover:on-demand){
-	button{
-		color:#28a745 !important;
-		background:none !important;
-	}
+/*把bootstrap的hover蓋掉，不然在手機上要點能點的東西才能解除hover，會影響toggle active的表現*/
+.btn-outline-success:hover{
+	color:#28a745 !important;
+	background:none !important;
+}
+.btn-outline-danger:hover{
+	color:#dc3545 !important;
+	background:none !important;
+}
+
+/*active時再把上面的hover蓋掉，因為原本的active已經被上面蓋掉了*/
+.btn-outline-success.active{
+	color:#fff !important;
+	background:#28a745 !important;
+}
+
+.btn-outline-danger.active{
+	color:#fff !important;
+	background:#dc3545 !important;
 }
