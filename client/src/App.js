@@ -13,8 +13,8 @@ class App extends Component{
 		dominosCouponsShow:[],
 		napoliCouponsShow:[],
 
-		kfcIncludeActive:[false, false, false, false, false, false, false, false],//toggle button
-		kfcExcludeActive:[false, false, false, false, false, false, false, false],
+		kfcIncludeActive:[false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],//toggle button
+		kfcExcludeActive:[false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
 
 		pizzahutIncludeActive:[false, false, false, false, false, false, false, false],
 		pizzahutExcludeActive:[false, false, false, false, false, false, false, false],
@@ -24,8 +24,8 @@ class App extends Component{
 		modalImg:false,
 		imgUrl:"",
 	};
-	kfcNames=["炸雞", "蛋塔", "地瓜球", "漢堡", "雞塊", "雞米花", "薯條", "飲品"];
-	kfcFilterNames=["炸雞", "蛋塔", "瓜球", "堡", "雞塊", "雞米花", "薯", "飲"];
+	kfcNames=["炸雞", "蛋塔", "地瓜球", "漢堡", "雞塊", "雞米花", "薯條", "飲品", "炸雞2+", "炸雞桶", "烤雞堡", "咔啦堡", "脆雞堡", "霸王/嫩雞捲", "濃湯"];
+	kfcFilterNames=["炸雞", "蛋塔", "瓜球", "堡", "雞塊", "雞米花", "薯", "飲", "炸雞*", "雞桶", "烤雞堡", "咔啦", "脆雞堡", "霸王", "濃湯"];
 	pizzahutNames=["雞腿/翅", "鱈魚", "QQ球", "濃湯", "薯星星", "飲料"];
 	pizzahutFilterNames=["腿", "鱈魚", "QQ球", "濃湯", "薯星星", "飲"];
 	kfcCoupons=[];
@@ -115,6 +115,13 @@ class App extends Component{
 								<Button outline color="success" style={{margin:".375rem .75rem"}} onClick={()=>this.kfcInclude(5)} active={kfcIncludeActive[5]}>{this.kfcNames[5]}</Button>
 								<Button outline color="success" style={{margin:".375rem .75rem"}} onClick={()=>this.kfcInclude(6)} active={kfcIncludeActive[6]}>{this.kfcNames[6]}</Button>
 								<Button outline color="success" style={{margin:".375rem .75rem"}} onClick={()=>this.kfcInclude(7)} active={kfcIncludeActive[7]}>{this.kfcNames[7]}</Button>
+								<Button outline color="success" style={{margin:".375rem .75rem"}} onClick={()=>this.kfcInclude(8)} active={kfcIncludeActive[8]}>{this.kfcNames[8]}</Button>
+								<Button outline color="success" style={{margin:".375rem .75rem"}} onClick={()=>this.kfcInclude(9)} active={kfcIncludeActive[9]}>{this.kfcNames[9]}</Button>
+								<Button outline color="success" style={{margin:".375rem .75rem"}} onClick={()=>this.kfcInclude(10)} active={kfcIncludeActive[10]}>{this.kfcNames[10]}</Button>
+								<Button outline color="success" style={{margin:".375rem .75rem"}} onClick={()=>this.kfcInclude(11)} active={kfcIncludeActive[11]}>{this.kfcNames[11]}</Button>
+								<Button outline color="success" style={{margin:".375rem .75rem"}} onClick={()=>this.kfcInclude(12)} active={kfcIncludeActive[12]}>{this.kfcNames[12]}</Button>
+								<Button outline color="success" style={{margin:".375rem .75rem"}} onClick={()=>this.kfcInclude(13)} active={kfcIncludeActive[13]}>{this.kfcNames[13]}</Button>
+								<Button outline color="success" style={{margin:".375rem .75rem"}} onClick={()=>this.kfcInclude(14)} active={kfcIncludeActive[14]}>{this.kfcNames[14]}</Button>
 							</div>
 							<div style={{display:"flex", flexWrap:"wrap", alignItems:"center", marginLeft:10}}>
 								<span>我一定不要：</span>
@@ -126,6 +133,13 @@ class App extends Component{
 								<Button outline color="danger" style={{margin:".375rem .75rem"}} onClick={()=>this.kfcExclude(5)} active={kfcExcludeActive[5]}>{this.kfcNames[5]}</Button>
 								<Button outline color="danger" style={{margin:".375rem .75rem"}} onClick={()=>this.kfcExclude(6)} active={kfcExcludeActive[6]}>{this.kfcNames[6]}</Button>
 								<Button outline color="danger" style={{margin:".375rem .75rem"}} onClick={()=>this.kfcExclude(7)} active={kfcExcludeActive[7]}>{this.kfcNames[7]}</Button>
+								<Button outline color="danger" style={{margin:".375rem .75rem"}} onClick={()=>this.kfcExclude(8)} active={kfcExcludeActive[8]}>{this.kfcNames[8]}</Button>
+								<Button outline color="danger" style={{margin:".375rem .75rem"}} onClick={()=>this.kfcExclude(9)} active={kfcExcludeActive[9]}>{this.kfcNames[9]}</Button>
+								<Button outline color="danger" style={{margin:".375rem .75rem"}} onClick={()=>this.kfcExclude(10)} active={kfcExcludeActive[10]}>{this.kfcNames[10]}</Button>
+								<Button outline color="danger" style={{margin:".375rem .75rem"}} onClick={()=>this.kfcExclude(11)} active={kfcExcludeActive[11]}>{this.kfcNames[11]}</Button>
+								<Button outline color="danger" style={{margin:".375rem .75rem"}} onClick={()=>this.kfcExclude(12)} active={kfcExcludeActive[12]}>{this.kfcNames[12]}</Button>
+								<Button outline color="danger" style={{margin:".375rem .75rem"}} onClick={()=>this.kfcExclude(13)} active={kfcExcludeActive[13]}>{this.kfcNames[13]}</Button>
+								<Button outline color="danger" style={{margin:".375rem .75rem"}} onClick={()=>this.kfcExclude(14)} active={kfcExcludeActive[14]}>{this.kfcNames[14]}</Button>
 							</div>
 							<div style={{display:"flex", flexWrap:"wrap", alignItems:"center", marginLeft:10}}>
 								<span>數量：{kfcCouponsShow.length}</span>
@@ -275,7 +289,13 @@ class App extends Component{
 					return kfcCoupon.description.includes(kfcIncludeFilter)||kfcCoupon.description.includes("雞桶");
 				}
 				else if(kfcIncludeFilter==="飲"){
-					return kfcCoupon.description.includes(kfcIncludeFilter)||kfcCoupon.description.includes("義式")||kfcCoupon.description.includes("紅茶")||kfcCoupon.description.includes("濃湯");
+					return kfcCoupon.description.includes(kfcIncludeFilter)||kfcCoupon.description.includes("義式")||kfcCoupon.description.includes("紅茶");
+				}
+				else if(kfcIncludeFilter==="炸雞*"){
+					return kfcCoupon.description.includes(kfcIncludeFilter)||kfcCoupon.description.includes("雞桶");
+				}
+				else if(kfcIncludeFilter==="霸王"){
+					return kfcCoupon.description.includes(kfcIncludeFilter)||kfcCoupon.description.includes("嫩雞");
 				}
 				else{
 					return kfcCoupon.description.includes(kfcIncludeFilter);
@@ -286,7 +306,13 @@ class App extends Component{
 					return !kfcCoupon.description.includes(kfcExcludeFilter)&&!kfcCoupon.description.includes("雞桶");
 				}
 				else if(kfcExcludeFilter==="飲"){
-					return !kfcCoupon.description.includes(kfcExcludeFilter)&&!kfcCoupon.description.includes("義式")&&!kfcCoupon.description.includes("紅茶")&&!kfcCoupon.description.includes("濃湯");
+					return !kfcCoupon.description.includes(kfcExcludeFilter)&&!kfcCoupon.description.includes("義式")&&!kfcCoupon.description.includes("紅茶");
+				}
+				else if(kfcExcludeFilter==="炸雞*"){
+					return !kfcCoupon.description.includes(kfcExcludeFilter)&&!kfcCoupon.description.includes("雞桶");
+				}
+				else if(kfcExcludeFilter==="霸王"){
+					return !kfcCoupon.description.includes(kfcExcludeFilter)&&!kfcCoupon.description.includes("嫩雞");
 				}
 				else{
 					return !kfcCoupon.description.includes(kfcExcludeFilter);
