@@ -95,7 +95,7 @@ class App extends Component{
 
 		return (
 			<Router>
-				<div style={{fontFamily:"Helvetica-W01-Light,微軟正黑體,sans-serif", display:"flex", flexDirection:"column", alignItems:"center"}}>
+				<div style={{fontFamily:"Helvetica-W01-Light,微軟正黑體,sans-serif", display:"flex", flexDirection:"column", alignItems:"center", color:"#6c757d"}}>
 					<ul style={styles.nav}>
 						<NavLink to="/">肯德基</NavLink>
 						<NavLink to="/pizzahut">必勝客</NavLink>
@@ -104,50 +104,53 @@ class App extends Component{
 					</ul>
 
 					<Route exact path="/" render={()=>(
-						<div style={{display:"flex", flexDirection:"column", alignItems:"center", position:"absolute", top:40}}>
+						<div style={{display:"flex", flexDirection:"column", alignItems:"center", position:"absolute", top:50}}>
 							<div style={{display:"flex", flexWrap:"wrap", alignItems:"center", marginLeft:10}}>
 								<span>　我一定要：</span>
-								<Button outline color="success" style={{margin:".375rem .75rem"}} onClick={()=>this.kfcInclude(0)} active={kfcIncludeActive[0]}>{this.kfcNames[0]}</Button>
-								<Button outline color="success" style={{margin:".375rem .75rem"}} onClick={()=>this.kfcInclude(1)} active={kfcIncludeActive[1]}>{this.kfcNames[1]}</Button>
-								<Button outline color="success" style={{margin:".375rem .75rem"}} onClick={()=>this.kfcInclude(2)} active={kfcIncludeActive[2]}>{this.kfcNames[2]}</Button>
-								<Button outline color="success" style={{margin:".375rem .75rem"}} onClick={()=>this.kfcInclude(3)} active={kfcIncludeActive[3]}>{this.kfcNames[3]}</Button>
-								<Button outline color="success" style={{margin:".375rem .75rem"}} onClick={()=>this.kfcInclude(4)} active={kfcIncludeActive[4]}>{this.kfcNames[4]}</Button>
-								<Button outline color="success" style={{margin:".375rem .75rem"}} onClick={()=>this.kfcInclude(5)} active={kfcIncludeActive[5]}>{this.kfcNames[5]}</Button>
-								<Button outline color="success" style={{margin:".375rem .75rem"}} onClick={()=>this.kfcInclude(6)} active={kfcIncludeActive[6]}>{this.kfcNames[6]}</Button>
-								<Button outline color="success" style={{margin:".375rem .75rem"}} onClick={()=>this.kfcInclude(7)} active={kfcIncludeActive[7]}>{this.kfcNames[7]}</Button>
-								<Button outline color="success" style={{margin:".375rem .75rem"}} onClick={()=>this.kfcInclude(8)} active={kfcIncludeActive[8]}>{this.kfcNames[8]}</Button>
-								<Button outline color="success" style={{margin:".375rem .75rem"}} onClick={()=>this.kfcInclude(9)} active={kfcIncludeActive[9]}>{this.kfcNames[9]}</Button>
-								<Button outline color="success" style={{margin:".375rem .75rem"}} onClick={()=>this.kfcInclude(10)} active={kfcIncludeActive[10]}>{this.kfcNames[10]}</Button>
-								<Button outline color="success" style={{margin:".375rem .75rem"}} onClick={()=>this.kfcInclude(11)} active={kfcIncludeActive[11]}>{this.kfcNames[11]}</Button>
-								<Button outline color="success" style={{margin:".375rem .75rem"}} onClick={()=>this.kfcInclude(12)} active={kfcIncludeActive[12]}>{this.kfcNames[12]}</Button>
-								<Button outline color="success" style={{margin:".375rem .75rem"}} onClick={()=>this.kfcInclude(13)} active={kfcIncludeActive[13]}>{this.kfcNames[13]}</Button>
-								<Button outline color="success" style={{margin:".375rem .75rem"}} onClick={()=>this.kfcInclude(14)} active={kfcIncludeActive[14]}>{this.kfcNames[14]}</Button>
+								<Button outline color="primary" style={{margin:".1rem .1rem"}} onClick={()=>this.kfcInclude(0)} active={kfcIncludeActive[0]}>{this.kfcNames[0]}</Button>
+								<Button outline color="primary" style={{margin:".1rem .1rem"}} onClick={()=>this.kfcInclude(1)} active={kfcIncludeActive[1]}>{this.kfcNames[1]}</Button>
+								<Button outline color="primary" style={{margin:".1rem .1rem"}} onClick={()=>this.kfcInclude(2)} active={kfcIncludeActive[2]}>{this.kfcNames[2]}</Button>
+								<Button outline color="primary" style={{margin:".1rem .1rem"}} onClick={()=>this.kfcInclude(3)} active={kfcIncludeActive[3]}>{this.kfcNames[3]}</Button>
+								<Button outline color="primary" style={{margin:".1rem .1rem"}} onClick={()=>this.kfcInclude(4)} active={kfcIncludeActive[4]}>{this.kfcNames[4]}</Button>
+								<Button outline color="primary" style={{margin:".1rem .1rem"}} onClick={()=>this.kfcInclude(5)} active={kfcIncludeActive[5]}>{this.kfcNames[5]}</Button>
+								<Button outline color="primary" style={{margin:".1rem .1rem"}} onClick={()=>this.kfcInclude(6)} active={kfcIncludeActive[6]}>{this.kfcNames[6]}</Button>
+								<Button outline color="primary" style={{margin:".1rem .1rem"}} onClick={()=>this.kfcInclude(7)} active={kfcIncludeActive[7]}>{this.kfcNames[7]}</Button>
+								<Button outline color="primary" style={{margin:".1rem .1rem"}} onClick={()=>this.kfcInclude(8)} active={kfcIncludeActive[8]}>{this.kfcNames[8]}</Button>
+								<Button outline color="primary" style={{margin:".1rem .1rem"}} onClick={()=>this.kfcInclude(9)} active={kfcIncludeActive[9]}>{this.kfcNames[9]}</Button>
+								<Button outline color="primary" style={{margin:".1rem .1rem"}} onClick={()=>this.kfcInclude(10)} active={kfcIncludeActive[10]}>{this.kfcNames[10]}</Button>
+								<Button outline color="primary" style={{margin:".1rem .1rem"}} onClick={()=>this.kfcInclude(11)} active={kfcIncludeActive[11]}>{this.kfcNames[11]}</Button>
+								<Button outline color="primary" style={{margin:".1rem .1rem"}} onClick={()=>this.kfcInclude(12)} active={kfcIncludeActive[12]}>{this.kfcNames[12]}</Button>
+								<Button outline color="primary" style={{margin:".1rem .1rem"}} onClick={()=>this.kfcInclude(13)} active={kfcIncludeActive[13]}>{this.kfcNames[13]}</Button>
+								<Button outline color="primary" style={{margin:".1rem .1rem"}} onClick={()=>this.kfcInclude(14)} active={kfcIncludeActive[14]}>{this.kfcNames[14]}</Button>
 							</div>
 							<div style={{display:"flex", flexWrap:"wrap", alignItems:"center", marginLeft:10}}>
 								<span>我一定不要：</span>
-								<Button outline color="danger" style={{margin:".375rem .75rem"}} onClick={()=>this.kfcExclude(0)} active={kfcExcludeActive[0]}>{this.kfcNames[0]}</Button>
-								<Button outline color="danger" style={{margin:".375rem .75rem"}} onClick={()=>this.kfcExclude(1)} active={kfcExcludeActive[1]}>{this.kfcNames[1]}</Button>
-								<Button outline color="danger" style={{margin:".375rem .75rem"}} onClick={()=>this.kfcExclude(2)} active={kfcExcludeActive[2]}>{this.kfcNames[2]}</Button>
-								<Button outline color="danger" style={{margin:".375rem .75rem"}} onClick={()=>this.kfcExclude(3)} active={kfcExcludeActive[3]}>{this.kfcNames[3]}</Button>
-								<Button outline color="danger" style={{margin:".375rem .75rem"}} onClick={()=>this.kfcExclude(4)} active={kfcExcludeActive[4]}>{this.kfcNames[4]}</Button>
-								<Button outline color="danger" style={{margin:".375rem .75rem"}} onClick={()=>this.kfcExclude(5)} active={kfcExcludeActive[5]}>{this.kfcNames[5]}</Button>
-								<Button outline color="danger" style={{margin:".375rem .75rem"}} onClick={()=>this.kfcExclude(6)} active={kfcExcludeActive[6]}>{this.kfcNames[6]}</Button>
-								<Button outline color="danger" style={{margin:".375rem .75rem"}} onClick={()=>this.kfcExclude(7)} active={kfcExcludeActive[7]}>{this.kfcNames[7]}</Button>
-								<Button outline color="danger" style={{margin:".375rem .75rem"}} onClick={()=>this.kfcExclude(8)} active={kfcExcludeActive[8]}>{this.kfcNames[8]}</Button>
-								<Button outline color="danger" style={{margin:".375rem .75rem"}} onClick={()=>this.kfcExclude(9)} active={kfcExcludeActive[9]}>{this.kfcNames[9]}</Button>
-								<Button outline color="danger" style={{margin:".375rem .75rem"}} onClick={()=>this.kfcExclude(10)} active={kfcExcludeActive[10]}>{this.kfcNames[10]}</Button>
-								<Button outline color="danger" style={{margin:".375rem .75rem"}} onClick={()=>this.kfcExclude(11)} active={kfcExcludeActive[11]}>{this.kfcNames[11]}</Button>
-								<Button outline color="danger" style={{margin:".375rem .75rem"}} onClick={()=>this.kfcExclude(12)} active={kfcExcludeActive[12]}>{this.kfcNames[12]}</Button>
-								<Button outline color="danger" style={{margin:".375rem .75rem"}} onClick={()=>this.kfcExclude(13)} active={kfcExcludeActive[13]}>{this.kfcNames[13]}</Button>
-								<Button outline color="danger" style={{margin:".375rem .75rem"}} onClick={()=>this.kfcExclude(14)} active={kfcExcludeActive[14]}>{this.kfcNames[14]}</Button>
+								<Button outline color="secondary" style={{margin:".1rem .1rem"}} onClick={()=>this.kfcExclude(0)} active={kfcExcludeActive[0]}>{this.kfcNames[0]}</Button>
+								<Button outline color="secondary" style={{margin:".1rem .1rem"}} onClick={()=>this.kfcExclude(1)} active={kfcExcludeActive[1]}>{this.kfcNames[1]}</Button>
+								<Button outline color="secondary" style={{margin:".1rem .1rem"}} onClick={()=>this.kfcExclude(2)} active={kfcExcludeActive[2]}>{this.kfcNames[2]}</Button>
+								<Button outline color="secondary" style={{margin:".1rem .1rem"}} onClick={()=>this.kfcExclude(3)} active={kfcExcludeActive[3]}>{this.kfcNames[3]}</Button>
+								<Button outline color="secondary" style={{margin:".1rem .1rem"}} onClick={()=>this.kfcExclude(4)} active={kfcExcludeActive[4]}>{this.kfcNames[4]}</Button>
+								<Button outline color="secondary" style={{margin:".1rem .1rem"}} onClick={()=>this.kfcExclude(5)} active={kfcExcludeActive[5]}>{this.kfcNames[5]}</Button>
+								<Button outline color="secondary" style={{margin:".1rem .1rem"}} onClick={()=>this.kfcExclude(6)} active={kfcExcludeActive[6]}>{this.kfcNames[6]}</Button>
+								<Button outline color="secondary" style={{margin:".1rem .1rem"}} onClick={()=>this.kfcExclude(7)} active={kfcExcludeActive[7]}>{this.kfcNames[7]}</Button>
+								<Button outline color="secondary" style={{margin:".1rem .1rem"}} onClick={()=>this.kfcExclude(8)} active={kfcExcludeActive[8]}>{this.kfcNames[8]}</Button>
+								<Button outline color="secondary" style={{margin:".1rem .1rem"}} onClick={()=>this.kfcExclude(9)} active={kfcExcludeActive[9]}>{this.kfcNames[9]}</Button>
+								<Button outline color="secondary" style={{margin:".1rem .1rem"}} onClick={()=>this.kfcExclude(10)} active={kfcExcludeActive[10]}>{this.kfcNames[10]}</Button>
+								<Button outline color="secondary" style={{margin:".1rem .1rem"}} onClick={()=>this.kfcExclude(11)} active={kfcExcludeActive[11]}>{this.kfcNames[11]}</Button>
+								<Button outline color="secondary" style={{margin:".1rem .1rem"}} onClick={()=>this.kfcExclude(12)} active={kfcExcludeActive[12]}>{this.kfcNames[12]}</Button>
+								<Button outline color="secondary" style={{margin:".1rem .1rem"}} onClick={()=>this.kfcExclude(13)} active={kfcExcludeActive[13]}>{this.kfcNames[13]}</Button>
+								<Button outline color="secondary" style={{margin:".1rem .1rem"}} onClick={()=>this.kfcExclude(14)} active={kfcExcludeActive[14]}>{this.kfcNames[14]}</Button>
 							</div>
 							<div style={{display:"flex", flexWrap:"wrap", alignItems:"center", marginLeft:10}}>
-								<span>數量：{kfcCouponsShow.length}</span>
-								<Button color="primary" style={{margin:".375rem .75rem"}} onClick={this.kfcReset}>重置</Button>
+								<span style={{marginRight:10}}>數量：{kfcCouponsShow.length}</span>
+								<Button outline color="primary" style={{margin:".1rem .1rem"}} onClick={this.kfcReset}>重置</Button>
+								<span style={{marginLeft:10, marginRight:10, color:"#17a2b8"}}>天藍色可以直接點開圖片</span>
+								<span>來源：</span>
+								<a href="https://www.ptt.cc/bbs/fastfood/M.1526277935.A.DA0.html" target="_blank">ptt置底</a>
 							</div>
 							<div style={{display:"flex", flexWrap:"wrap", justifyContent:"center"}}>
 								{kfcCouponsShow.map((e, i)=>(
-									<div style={{width:330, margin:5, padding:5, border:imgKfc[e.code]!==undefined?"1px solid pink":"1px solid rgba(0,0,0,0.3)", borderRadius:".25rem"}} key={i} onClick={()=>imgKfc[e.code]!==undefined&&this.toggleModalImg(imgKfc[e.code])}>
+									<div style={{width:330, margin:5, padding:5, border:imgKfc[e.code]!==undefined?"1px solid #17a2b8":"1px solid #6c757d", color:imgKfc[e.code]!==undefined?"#17a2b8":"inherit", borderRadius:".25rem"}} key={i} onClick={()=>imgKfc[e.code]!==undefined&&this.toggleModalImg(imgKfc[e.code])}>
 										<div style={{display:"flex", justifyContent:"space-between"}}>
 											<div style={{display:"flex"}}><div style={{marginRight:10}}>{e.code}</div><div>{e.price}</div></div><div>{e.expireDate}</div>
 										</div>
@@ -158,32 +161,35 @@ class App extends Component{
 						</div>
 					)}/>
 					<Route path="/pizzahut" render={()=>(
-						<div style={{display:"flex", flexDirection:"column", alignItems:"center", position:"absolute", top:40}}>
+						<div style={{display:"flex", flexDirection:"column", alignItems:"center", position:"absolute", top:50}}>
 							<div style={{display:"flex", flexWrap:"wrap", alignItems:"center", marginLeft:10}}>
 								<span>　我一定要：</span>
-								<Button outline color="success" style={{margin:".375rem .75rem"}} onClick={()=>this.pizzahutInclude(0)} active={pizzahutIncludeActive[0]}>{this.pizzahutNames[0]}</Button>
-								<Button outline color="success" style={{margin:".375rem .75rem"}} onClick={()=>this.pizzahutInclude(1)} active={pizzahutIncludeActive[1]}>{this.pizzahutNames[1]}</Button>
-								<Button outline color="success" style={{margin:".375rem .75rem"}} onClick={()=>this.pizzahutInclude(2)} active={pizzahutIncludeActive[2]}>{this.pizzahutNames[2]}</Button>
-								<Button outline color="success" style={{margin:".375rem .75rem"}} onClick={()=>this.pizzahutInclude(3)} active={pizzahutIncludeActive[3]}>{this.pizzahutNames[3]}</Button>
-								<Button outline color="success" style={{margin:".375rem .75rem"}} onClick={()=>this.pizzahutInclude(4)} active={pizzahutIncludeActive[4]}>{this.pizzahutNames[4]}</Button>
-								<Button outline color="success" style={{margin:".375rem .75rem"}} onClick={()=>this.pizzahutInclude(5)} active={pizzahutIncludeActive[5]}>{this.pizzahutNames[5]}</Button>
+								<Button outline color="primary" style={{margin:".1rem .1rem"}} onClick={()=>this.pizzahutInclude(0)} active={pizzahutIncludeActive[0]}>{this.pizzahutNames[0]}</Button>
+								<Button outline color="primary" style={{margin:".1rem .1rem"}} onClick={()=>this.pizzahutInclude(1)} active={pizzahutIncludeActive[1]}>{this.pizzahutNames[1]}</Button>
+								<Button outline color="primary" style={{margin:".1rem .1rem"}} onClick={()=>this.pizzahutInclude(2)} active={pizzahutIncludeActive[2]}>{this.pizzahutNames[2]}</Button>
+								<Button outline color="primary" style={{margin:".1rem .1rem"}} onClick={()=>this.pizzahutInclude(3)} active={pizzahutIncludeActive[3]}>{this.pizzahutNames[3]}</Button>
+								<Button outline color="primary" style={{margin:".1rem .1rem"}} onClick={()=>this.pizzahutInclude(4)} active={pizzahutIncludeActive[4]}>{this.pizzahutNames[4]}</Button>
+								<Button outline color="primary" style={{margin:".1rem .1rem"}} onClick={()=>this.pizzahutInclude(5)} active={pizzahutIncludeActive[5]}>{this.pizzahutNames[5]}</Button>
 							</div>
 							<div style={{display:"flex", flexWrap:"wrap", alignItems:"center", marginLeft:10}}>
 								<span>我一定不要：</span>
-								<Button outline color="danger" style={{margin:".375rem .75rem"}} onClick={()=>this.pizzahutExclude(0)} active={pizzahutExcludeActive[0]}>{this.pizzahutNames[0]}</Button>
-								<Button outline color="danger" style={{margin:".375rem .75rem"}} onClick={()=>this.pizzahutExclude(1)} active={pizzahutExcludeActive[1]}>{this.pizzahutNames[1]}</Button>
-								<Button outline color="danger" style={{margin:".375rem .75rem"}} onClick={()=>this.pizzahutExclude(2)} active={pizzahutExcludeActive[2]}>{this.pizzahutNames[2]}</Button>
-								<Button outline color="danger" style={{margin:".375rem .75rem"}} onClick={()=>this.pizzahutExclude(3)} active={pizzahutExcludeActive[3]}>{this.pizzahutNames[3]}</Button>
-								<Button outline color="danger" style={{margin:".375rem .75rem"}} onClick={()=>this.pizzahutExclude(4)} active={pizzahutExcludeActive[4]}>{this.pizzahutNames[4]}</Button>
-								<Button outline color="danger" style={{margin:".375rem .75rem"}} onClick={()=>this.pizzahutExclude(5)} active={pizzahutExcludeActive[5]}>{this.pizzahutNames[5]}</Button>
+								<Button outline color="secondary" style={{margin:".1rem .1rem"}} onClick={()=>this.pizzahutExclude(0)} active={pizzahutExcludeActive[0]}>{this.pizzahutNames[0]}</Button>
+								<Button outline color="secondary" style={{margin:".1rem .1rem"}} onClick={()=>this.pizzahutExclude(1)} active={pizzahutExcludeActive[1]}>{this.pizzahutNames[1]}</Button>
+								<Button outline color="secondary" style={{margin:".1rem .1rem"}} onClick={()=>this.pizzahutExclude(2)} active={pizzahutExcludeActive[2]}>{this.pizzahutNames[2]}</Button>
+								<Button outline color="secondary" style={{margin:".1rem .1rem"}} onClick={()=>this.pizzahutExclude(3)} active={pizzahutExcludeActive[3]}>{this.pizzahutNames[3]}</Button>
+								<Button outline color="secondary" style={{margin:".1rem .1rem"}} onClick={()=>this.pizzahutExclude(4)} active={pizzahutExcludeActive[4]}>{this.pizzahutNames[4]}</Button>
+								<Button outline color="secondary" style={{margin:".1rem .1rem"}} onClick={()=>this.pizzahutExclude(5)} active={pizzahutExcludeActive[5]}>{this.pizzahutNames[5]}</Button>
 							</div>
 							<div style={{display:"flex", flexWrap:"wrap", alignItems:"center", marginLeft:10}}>
-								<span>數量：{pizzahutCouponsShow.length}</span>
-								<Button color="primary" style={{margin:".375rem .75rem"}} onClick={this.pizzahutReset}>重置</Button>
+								<span style={{marginRight:10}}>數量：{pizzahutCouponsShow.length}</span>
+								<Button outline color="primary" style={{margin:".1rem .1rem"}} onClick={this.pizzahutReset}>重置</Button>
+								<span style={{marginLeft:10, marginRight:10, color:"#17a2b8"}}>天藍色可以直接點開圖片</span>
+								<span>來源：</span>
+								<a href="https://www.ptt.cc/bbs/fastfood/M.1526277935.A.DA0.html" target="_blank">ptt置底</a>
 							</div>
 							<div style={{display:"flex", flexWrap:"wrap", justifyContent:"center"}}>
 								{pizzahutCouponsShow.map((e, i)=>(
-									<div style={{width:330, margin:5, padding:5, border:imgPizzahut[e.code]!==undefined?"1px solid pink":"1px solid rgba(0,0,0,0.3)", borderRadius:".25rem"}} key={i} onClick={()=>imgPizzahut[e.code]!==undefined&&this.toggleModalImg(imgPizzahut[e.code])}>
+									<div style={{width:330, margin:5, padding:5, border:imgPizzahut[e.code]!==undefined?"1px solid #17a2b8":"1px solid #6c757d", color:imgPizzahut[e.code]!==undefined?"#17a2b8":"inherit", borderRadius:".25rem"}} key={i} onClick={()=>imgPizzahut[e.code]!==undefined&&this.toggleModalImg(imgPizzahut[e.code])}>
 										<div style={{display:"flex", justifyContent:"space-between"}}>
 											<div style={{display:"flex"}}><div style={{marginRight:10}}>{e.code}</div><div>{e.price}</div></div><div>{e.expireDate}</div>
 										</div>
@@ -194,13 +200,13 @@ class App extends Component{
 						</div>
 					)}/>
 					<Route path="/dominos" render={()=>(
-						<div style={{display:"flex", flexDirection:"column", alignItems:"center", position:"absolute", top:40}}>
+						<div style={{display:"flex", flexDirection:"column", alignItems:"center", position:"absolute", top:50}}>
 							<div style={{display:"flex", flexWrap:"wrap", alignItems:"center", marginLeft:10}}>
-								<span>數量：{dominosCouponsShow.length}</span>
+								<span style={{marginRight:10}}>數量：{dominosCouponsShow.length}</span>
 							</div>
 							<div style={{display:"flex", flexWrap:"wrap", justifyContent:"center"}}>
 								{dominosCouponsShow.map((e, i)=>(
-									<div style={{width:330, margin:5, padding:5, border:"1px solid rgba(0,0,0,0.3)", borderRadius:".25rem"}} key={i}>
+									<div style={{width:330, margin:5, padding:5, border:"1px solid #6c757d", borderRadius:".25rem"}} key={i}>
 										<div style={{display:"flex", justifyContent:"space-between"}}>
 											<div style={{display:"flex"}}><div style={{marginRight:10}}>{e.code}</div><div>{e.price}</div></div><div>{e.expireDate}</div>
 										</div>
@@ -211,13 +217,13 @@ class App extends Component{
 						</div>
 					)}/>
 					<Route path="/napoli" render={()=>(
-						<div style={{display:"flex", flexDirection:"column", alignItems:"center", position:"absolute", top:40}}>
+						<div style={{display:"flex", flexDirection:"column", alignItems:"center", position:"absolute", top:50}}>
 							<div style={{display:"flex", flexWrap:"wrap", alignItems:"center", marginLeft:10}}>
-								<span>數量：{napoliCouponsShow.length}</span>
+								<span style={{marginRight:10}}>數量：{napoliCouponsShow.length}</span>
 							</div>
 							<div style={{display:"flex", flexWrap:"wrap", justifyContent:"center"}}>
 								{napoliCouponsShow.map((e, i)=>(
-									<div style={{width:330, margin:5, padding:5, border:"1px solid rgba(0,0,0,0.3)", borderRadius:".25rem"}} key={i}>
+									<div style={{width:330, margin:5, padding:5, border:"1px solid #6c757d", borderRadius:".25rem"}} key={i}>
 										<div style={{display:"flex", justifyContent:"space-between"}}>
 											<div style={{display:"flex"}}><div style={{marginRight:10}}>{e.code}</div><div>{e.price}</div></div><div>{e.expireDate}</div>
 										</div>
@@ -423,7 +429,7 @@ export default App;
 function NavLink(props){
 	return (
 		<li style={styles.navItem}>
-			<Link {...props}/>
+			<Link {...props} style={{color:"#6c757d"}}/>
 		</li>
 	);
 }
@@ -438,6 +444,8 @@ styles.nav={
 	height:"40px",
 	width:"100%",
 	display:"flex",
+	background:"#f4f5f6",
+	borderBottom:"1px solid #d1d1d1",
 };
 
 styles.navItem={

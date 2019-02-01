@@ -49,22 +49,22 @@ ul{
 }
 
 /*把bootstrap的hover蓋掉，不然在手機上要點能點的東西才能解除hover，會影響toggle active的表現*/
-.btn-outline-success:hover{
-	color:#28a745 !important;
+.btn-outline-primary:hover{
+	color:#007bff !important;
 	background:none !important;
 }
-.btn-outline-danger:hover{
-	color:#dc3545 !important;
+.btn-outline-secondary:hover{
+	color:#6c757d !important;
 	background:none !important;
 }
 
 /*active時再把上面的hover蓋掉，因為原本的active已經被上面蓋掉了*/
-.btn-outline-success.active{
+.btn-outline-primary.active{
 	color:#fff !important;
-	background:#28a745 !important;
+	background:#007bff !important;
 }
 
-.btn-outline-danger.active{
+.btn-outline-secondary.active{
 	color:#fff !important;
-	background:#dc3545 !important;
+	background:#6c757d !important;
 }

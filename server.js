@@ -127,13 +127,21 @@ app.get("/getDominosCoupons", async (req, res)=>{
 			if(i===5){
 				return true;
 			}
-			if(e.type==="text"&&e.data.trim()!==""){
-				if(e.data.includes("悠遊卡")){
+			if(e.type==="text"&&e.data.trim().includes("~")){
+				if(e.prev.prev.type!=="text"){//無價格
 					coupons.push({
-						"code":e.data.trim(),
+						"code":e.prev.prev.children[0].data,
 						"price":"$ ?",
-						"description":e.next.children[0].data.trim(),
-						"expireDate":e.next.next.data.split("\n")[0].trim(),
+						"description":e.prev.children[0].data,
+						"expireDate":e.data.split("\n")[0].trim(),
+					});
+				}
+				else{
+					coupons.push({
+						"code":e.prev.prev.prev.children[0].data,
+						"price":e.prev.prev.data.trim(),
+						"description":e.prev.children[0].data,
+						"expireDate":e.data.split("\n")[0].trim(),
 					});
 				}
 			}
