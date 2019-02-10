@@ -406,8 +406,8 @@ class App extends Component{
 	kfcReset=()=>{
 		this.setState({
 			kfcCouponsShow:this.kfcCoupons,
-			kfcIncludeActive:[false, false, false, false, false, false, false, false],
-			kfcExcludeActive:[false, false, false, false, false, false, false, false],
+			kfcIncludeActive:[false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+			kfcExcludeActive:[false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
 		});
 		this.kfcIncludeFilters=[];
 		this.kfcExcludeFilters=[];
