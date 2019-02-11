@@ -23,6 +23,7 @@ class App extends Component{
 		imgPizzahut:{},
 		modalImg:false,
 		imgUrl:"",
+		imgAlt:"",
 	};
 	kfcNames=["炸雞", "蛋塔", "地瓜球", "漢堡", "雞塊", "雞米花", "薯條", "飲品", "炸雞2+", "炸雞桶", "烤雞堡", "咔啦堡", "脆雞堡", "霸王/嫩雞捲", "濃湯"];
 	kfcFilterNames=["炸雞", "蛋塔", "瓜球", "堡", "雞塊", "雞米花", "薯", "飲", "炸雞*", "雞桶", "烤雞堡", "咔啦", "脆雞堡", "霸王", "濃湯"];
@@ -91,6 +92,7 @@ class App extends Component{
 			imgKfc,
 			imgPizzahut,
 			imgUrl,
+			imgAlt,
 		}=this.state;
 
 		return (
@@ -146,11 +148,11 @@ class App extends Component{
 								<Button outline color="primary" style={{margin:".1rem .1rem"}} onClick={this.kfcReset}>重置</Button>
 								<span style={{marginLeft:10, marginRight:10, color:"#17a2b8"}}>天藍色可以直接點開圖片</span>
 								<span>來源：</span>
-								<a href="https://www.ptt.cc/bbs/fastfood/M.1526277935.A.DA0.html" target="_blank">ptt置底</a>
+								<a href="https://www.ptt.cc/bbs/fastfood/M.1526277935.A.DA0.html" target="_blank" rel="noopener noreferrer">ptt置底</a>
 							</div>
 							<div style={{display:"flex", flexWrap:"wrap", justifyContent:"center"}}>
 								{kfcCouponsShow.map((e, i)=>(
-									<div style={{width:330, margin:5, padding:5, border:imgKfc[e.code]!==undefined?"1px solid #17a2b8":"1px solid #6c757d", color:imgKfc[e.code]!==undefined?"#17a2b8":"inherit", borderRadius:".25rem"}} key={i} onClick={()=>imgKfc[e.code]!==undefined&&this.toggleModalImg(imgKfc[e.code])}>
+									<div style={{width:330, margin:5, padding:5, border:imgKfc[e.code]!==undefined?"1px solid #17a2b8":"1px solid #6c757d", color:imgKfc[e.code]!==undefined?"#17a2b8":"inherit", borderRadius:".25rem"}} key={i} onClick={()=>imgKfc[e.code]!==undefined&&this.toggleModalImg(imgKfc[e.code], e.code)}>
 										<div style={{display:"flex", justifyContent:"space-between"}}>
 											<div style={{display:"flex"}}><div style={{marginRight:10}}>{e.code}</div><div>{e.price}</div></div><div>{e.expireDate}</div>
 										</div>
@@ -185,11 +187,11 @@ class App extends Component{
 								<Button outline color="primary" style={{margin:".1rem .1rem"}} onClick={this.pizzahutReset}>重置</Button>
 								<span style={{marginLeft:10, marginRight:10, color:"#17a2b8"}}>天藍色可以直接點開圖片</span>
 								<span>來源：</span>
-								<a href="https://www.ptt.cc/bbs/fastfood/M.1526277935.A.DA0.html" target="_blank">ptt置底</a>
+								<a href="https://www.ptt.cc/bbs/fastfood/M.1526277935.A.DA0.html" target="_blank" rel="noopener noreferrer">ptt置底</a>
 							</div>
 							<div style={{display:"flex", flexWrap:"wrap", justifyContent:"center"}}>
 								{pizzahutCouponsShow.map((e, i)=>(
-									<div style={{width:330, margin:5, padding:5, border:imgPizzahut[e.code]!==undefined?"1px solid #17a2b8":"1px solid #6c757d", color:imgPizzahut[e.code]!==undefined?"#17a2b8":"inherit", borderRadius:".25rem"}} key={i} onClick={()=>imgPizzahut[e.code]!==undefined&&this.toggleModalImg(imgPizzahut[e.code])}>
+									<div style={{width:330, margin:5, padding:5, border:imgPizzahut[e.code]!==undefined?"1px solid #17a2b8":"1px solid #6c757d", color:imgPizzahut[e.code]!==undefined?"#17a2b8":"inherit", borderRadius:".25rem"}} key={i} onClick={()=>imgPizzahut[e.code]!==undefined&&this.toggleModalImg(imgPizzahut[e.code], e.code)}>
 										<div style={{display:"flex", justifyContent:"space-between"}}>
 											<div style={{display:"flex"}}><div style={{marginRight:10}}>{e.code}</div><div>{e.price}</div></div><div>{e.expireDate}</div>
 										</div>
@@ -237,7 +239,7 @@ class App extends Component{
 					<Modal isOpen={this.state.modalImg} toggle={this.toggleModalImg} className={"modal-lg"}>
 						<ModalHeader toggle={this.toggleModalImg} close={closeBtn} style={{fontFamily:"Helvetica-W01-Light,微軟正黑體,sans-serif"}}>優惠券圖片</ModalHeader>
 						<ModalBody>
-							<img src={imgUrl} style={{width:"100%"}}/>
+							<img src={imgUrl} style={{width:"100%"}} alt={imgAlt}/>
 						</ModalBody>
 					</Modal>
 				</div>
@@ -245,7 +247,7 @@ class App extends Component{
 		);
 	}
 
-	toggleModalImg=url=>this.setState({imgUrl:url, modalImg:!this.state.modalImg});
+	toggleModalImg=(url, code)=>this.setState({imgUrl:url, imgAlt:code, modalImg:!this.state.modalImg});
 
 	kfcInclude=index=>{//按kfc一定要按紐
 		const {kfcIncludeActive}=this.state;

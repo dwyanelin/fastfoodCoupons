@@ -9,8 +9,6 @@ const url='https://www.ptt.cc/bbs/fastfood/M.1526277935.A.DA0.html';
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:false}));
 
-app.use(express.static("./client/build/"));
-
 app.get("/getKfcCoupons", async (req, res)=>{
 	let i=0;
 	let coupons=await rp(url)
@@ -236,7 +234,17 @@ app.get("/getImg", async (req, res)=>{
 	return res.json(img);
 });
 
-app.get("/*", (req, res)=>res.sendFile('index.html', {root: __dirname+'/client/build/'}));
+//Serve static assets if in production
+if (process.env.NODE_ENV==='production'){
+	//Set static folder
+	app.use(express.static('client/build'));
+
+	app.get('*', (req, res)=>res.sendFile('index.html', {root:__dirname+'/client/build/'}));
+}
+
+//app.use(express.static("./client/build/"));
+
+//app.get("/*", (req, res)=>res.sendFile('index.html', {root: __dirname+'/client/build/'}));
 
 const port=process.env.PORT||5000;
 

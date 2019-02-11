@@ -5,8 +5,10 @@
   "main": "server.js",
   "scripts": {
     "start": "node server",
-    "heroku-postbuild": "npm install --prefix client && npm run build --prefix client",
-    "dev": "npm run build --prefix client && node server"
+    "server": "node server",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "heroku-postbuild": "npm install --prefix client && npm run build --prefix client"
   },
   "keywords": [
     "fastfood",
@@ -20,6 +22,7 @@
   "dependencies": {
     "body-parser": "^1.18.3",
     "cheerio": "^1.0.0-rc.2",
+    "concurrently": "^4.1.0",
     "express": "^4.16.4",
     "request": "^2.88.0",
     "request-promise": "^4.2.2"
