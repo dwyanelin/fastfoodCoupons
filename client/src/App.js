@@ -441,8 +441,9 @@ const styles={};
 styles.nav={
 	padding:0,
 	margin:0,
-	position:"absolute",
+	position:"fixed",
 	top:0,
+	zIndex:1,
 	height:"40px",
 	width:"100%",
 	display:"flex",
