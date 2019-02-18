@@ -10,47 +10,37 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:false}));
 
 app.get("/getKfcCoupons", async (req, res)=>{
-	let i=0;
-	let coupons=await rp(url)
+	let coupons=await rp("https://kfc.2dim.space")
 	.then(body=>{
 		let coupons=[];
-		$("#main-content", body)[0].children.some(e=>{
-			if(e.attribs&&e.attribs.class==="f1 b7 hl"){
-				i++;
+		$("#parent", body)[0].children.forEach(e=>{
+			if(e.attribs&&e.attribs.class.includes("box")){
+				let code, price, description, expireDate;
+				e.children.forEach(e=>{
+					if(e.name==="a"){
+						e.children.forEach(e=>{
+							if(e.name==="div"){
+								price=e.children[0].data;
+							}
+							else{
+								code=e.data;
+							}
+						});
+					}
+					else if(e.attribs&&e.attribs.class==="vldt"){
+						expireDate=e.children[0].children[0].data;
+					}
+					else if(e.type==="text"){
+						description=e.data;
+					}
+				});
+				coupons.push({code, price, description, expireDate});
 			}
-			if(i===2){
-				return true;
-			}
-			if(e.type==="text"&&e.data.trim()!==""){
-				if(!(e.data.includes("\n"))&&e.data.includes("$")){
-					//console.log(e.prev);return true;
-					coupons.push({
-						"code":e.prev.children[0].data.trim(),
-						"price":e.data.trim(),
-						"description":e.next.children[0].data.trim(),
-						"expireDate":e.next.next.data.split("\n")[0].trim(),
-					});
-				}
-				else if(e.data.includes("$")){
-					let t=e.data.split("\n");
-					t=t[t.length-1];
-					t=t.split("$");
-					coupons.push({
-						"code":t[0].trim(),
-						"price":"$"+t[1].trim(),
-						"description":e.next.children[0].data.trim(),
-						"expireDate":e.next.next.data.split("\n")[0].trim(),
-					});
-				}
-			}
-			return false;
 		});
-		//console.log(coupons);
 		return coupons;
 	})
 	.catch(error=>console.log("server.getKfcCoupons.rp", error));
 
-	//let result=[{"code":"40096", "price":59, "description":"雙色地瓜球+小飲", "expireDate":"2019/01/28"}];
 	return res.json(coupons);
 });
 
@@ -193,19 +183,10 @@ app.get("/getNapoliCoupons", async (req, res)=>{
 app.get("/getImg", async (req, res)=>{
 	let img=await rp(url)
 	.then(body=>{
-		let flagKfc=false;
 		let flagPizzahut=false;
-		let imgKfc={};
 		let imgPizzahut={};
 		$("#main-content", body)[0].children.forEach(e=>{
 			if(e.children&&e.children[0].data&&e.children[0].data.includes("imgur")){//pivot=圖片網址
-				if(e.prev.prev.name==="span"&&e.prev.prev.children[0].data.trim()==="肯德基 優惠代碼"){
-					flagKfc=true;//開始抓肯德基圖片
-				}
-				if(e.prev.prev.name==="span"&&e.prev.prev.children[0].data.trim()==="使用悠遊卡/悠遊聯名卡消費優惠"){
-					flagKfc=false;//最後一張肯德基圖片特規，順便特規處理
-					imgKfc[e.prev.prev.children[0].data.trim()]=e.children[0].data.trim();
-				}
 				if(e.prev.prev.name==="span"&&e.prev.prev.children[0].data.trim()==="必勝客 優惠代碼"){
 					flagPizzahut=true;//開始抓必勝客圖片
 				}
@@ -219,17 +200,33 @@ app.get("/getImg", async (req, res)=>{
 				if(!url.includes(".jpg")&&!url.includes(".png")){
 					url+=".jpg";//加了才是直接顯示圖片的網址
 				}
-				if(flagKfc&&e.prev.data.trim()!==""){//有code就加到array裡面
-					imgKfc[e.prev.data.trim()]=url.replace("http:", "https:");//統一https
-				}
 				if(flagPizzahut&&e.prev.data.trim()!==""){
 					imgPizzahut[e.prev.data.trim()]=url.replace("http:", "https:");
 				}
 			}
 		});
-		return {imgKfc, imgPizzahut};
+		return {imgPizzahut};
 	})
-	.catch(error=>console.log("server.getKfcCoupons.rp", error));
+	.catch(error=>console.log("server.getImg.rp1", error));
+
+	img.imgKfc=await rp("https://kfc.2dim.space/img.html")
+	.then(body=>{
+		let imgKfc={};
+		$("#images", body)[0].children.forEach(e=>{
+			if(e.name==="img"){
+				let url=e.attribs.lnk.trim();//刪除前後空白換行
+				if(!url.includes("i.imgur")){
+					url=url.replace("imgur", "i.imgur");//img一致化
+				}
+				if(!url.includes(".jpg")&&!url.includes(".png")){
+					url+=".jpg";//加了才是直接顯示圖片的網址
+				}
+				imgKfc[e.attribs.id.trim().replace("i", "")]=url.replace("http:", "https:");//統一https
+			}
+		});
+		return imgKfc;
+	})
+	.catch(error=>console.log("server.getImg.rp2", error));
 
 	return res.json(img);
 });
@@ -241,10 +238,6 @@ if (process.env.NODE_ENV==='production'){
 
 	app.get('*', (req, res)=>res.sendFile('index.html', {root:__dirname+'/client/build/'}));
 }
-
-//app.use(express.static("./client/build/"));
-
-//app.get("/*", (req, res)=>res.sendFile('index.html', {root: __dirname+'/client/build/'}));
 
 const port=process.env.PORT||5000;
 
