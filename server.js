@@ -45,8 +45,39 @@ app.get("/getKfcCoupons", async (req, res)=>{
 });
 
 app.get("/getPizzahutCoupons", async (req, res)=>{
+	let coupons=await rp("https://pizzahut.2dim.space/")
+	.then(body=>{
+		let coupons=[];
+		$("#parent", body)[0].children.forEach(e=>{
+			if(e.attribs&&e.attribs.class&&e.attribs.class.includes("box")){
+				let code, price, description, expireDate;
+				e.children.forEach(e=>{
+					if(e.name==="a"){
+						e.children.forEach(e=>{
+							if(e.name==="div"){
+								price=e.children[0].data;
+							}
+							else{
+								code=e.data;
+							}
+						});
+					}
+					else if(e.attribs&&e.attribs.class==="vldt"){
+						expireDate=e.children[0].children[0]&&e.children[0].children[0].data;
+					}
+					else if(e.type==="text"){
+						description=e.data;
+					}
+				});
+				coupons.push({code, price, description, expireDate});
+			}
+		});
+		return coupons;
+	})
+	.catch(error=>console.log("server.getPizzahutCoupons.rp1", error));
+
 	let i=0;
-	let coupons=await rp(url)
+	let temp=await rp(url)
 	.then(body=>{
 		let coupons=[];
 		$("#main-content", body)[0].children.some(e=>{
@@ -94,7 +125,9 @@ app.get("/getPizzahutCoupons", async (req, res)=>{
 		//console.log(coupons);
 		return coupons;
 	})
-	.catch(error=>console.log("server.getPizzahutCoupons.rp", error));
+	.catch(error=>console.log("server.getPizzahutCoupons.rp2", error));
+
+	coupons=coupons.concat(temp);
 
 	//let result=[{"code":"18205", "price":99, "description":"指定口味個人比薩/黃金起司餃1份+薯星星*10+330ml飲", "expireDate":"?"}];
 	return res.json(coupons);
@@ -227,6 +260,26 @@ app.get("/getImg", async (req, res)=>{
 		return imgKfc;
 	})
 	.catch(error=>console.log("server.getImg.rp2", error));
+
+	var temp=await rp("https://pizzahut.2dim.space/img.html")
+	.then(body=>{
+		let imgPizzahut={};
+		$("#images", body)[0].children.forEach(e=>{
+			if(e.name==="img"){
+				let url=e.attribs.lnk.trim();//刪除前後空白換行
+				if(!url.includes("i.imgur")){
+					url=url.replace("imgur", "i.imgur");//img一致化
+				}
+				if(!url.includes(".jpg")&&!url.includes(".png")){
+					url+=".jpg";//加了才是直接顯示圖片的網址
+				}
+				imgPizzahut[e.attribs.id.trim().replace("i", "")]=url.replace("http:", "https:");//統一https
+			}
+		});
+		return imgPizzahut;
+	})
+	.catch(error=>console.log("server.getImg.rp2", error));
+	img.imgPizzahut=Object.assign({}, img.imgPizzahut, temp);
 
 	return res.json(img);
 });
