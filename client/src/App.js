@@ -207,7 +207,14 @@ class App extends Component{
 								<span style={{marginRight:10}}>數量：{dominosCouponsShow.length}</span>
 							</div>
 							<div style={{display:"flex", flexWrap:"wrap", justifyContent:"center"}}>
-								{dominosCouponsShow.map((e, i)=>(
+								{dominosCouponsShow.map((e, i)=>e.url?(
+									<div style={{width:330, margin:5, padding:5, border:"1px solid #17a2b8", color:"#17a2b8", borderRadius:".25rem"}} key={i} onClick={()=>this.toggleModalImg(e.url, e.code)}>
+										<div style={{display:"flex", justifyContent:"space-between"}}>
+											<div style={{display:"flex"}}><div style={{marginRight:10}}>{e.code}</div><div>{e.price}</div></div><div>{e.expireDate}</div>
+										</div>
+										<div>{e.description}</div>
+									</div>
+									):(
 									<div style={{width:330, margin:5, padding:5, border:"1px solid #6c757d", borderRadius:".25rem"}} key={i}>
 										<div style={{display:"flex", justifyContent:"space-between"}}>
 											<div style={{display:"flex"}}><div style={{marginRight:10}}>{e.code}</div><div>{e.price}</div></div><div>{e.expireDate}</div>
