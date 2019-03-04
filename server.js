@@ -13,29 +13,27 @@ app.get("/getKfcCoupons", async (req, res)=>{
 	let coupons=await rp("https://kfc.2dim.space")
 	.then(body=>{
 		let coupons=[];
-		$("#parent", body)[0].children.forEach(e=>{
-			if(e.attribs&&e.attribs.class.includes("box")){
-				let code, price, description, expireDate;
-				e.children.forEach(e=>{
-					if(e.name==="a"){
-						e.children.forEach(e=>{
-							if(e.name==="div"){
-								price=e.children[0].data;
-							}
-							else{
-								code=e.data;
-							}
-						});
-					}
-					else if(e.attribs&&e.attribs.class==="vldt"){
-						expireDate=e.children[0].children[0].data;
-					}
-					else if(e.type==="text"){
-						description=e.data;
-					}
-				});
-				coupons.push({code, price, description, expireDate});
-			}
+		$(".box", body).each((i, e)=>{
+			let code, price, description, expireDate;
+			e.children.forEach(e=>{
+				if(e.name==="a"){
+					e.children.forEach(e=>{
+						if(e.name==="div"){
+							price=e.children[0].data;
+						}
+						else{
+							code=e.children[0].data;
+						}
+					});
+				}
+				else if(e.attribs&&e.attribs.class==="vldt"){
+					expireDate=e.children[0].children[0].data;
+				}
+				else if(e.type==="text"){
+					description=e.data;
+				}
+			});
+			coupons.push({code, price, description, expireDate});
 		});
 		return coupons;
 	})
@@ -249,13 +247,20 @@ app.get("/getImg", async (req, res)=>{
 		$("#images", body)[0].children.forEach(e=>{
 			if(e.name==="img"){
 				let url=e.attribs.lnk.trim();//刪除前後空白換行
+				if(!url.includes("http")){
+					url="https://kfc.2dim.space/"+url;
+				}
 				if(!url.includes("i.imgur")){
 					url=url.replace("imgur", "i.imgur");//img一致化
 				}
 				if(!url.includes(".jpg")&&!url.includes(".png")){
 					url+=".jpg";//加了才是直接顯示圖片的網址
 				}
-				imgKfc[e.attribs.id.trim().replace("i", "")]=url.replace("http:", "https:");//統一https
+				let code=e.attribs.id.trim().replace("i", "");
+				if(code==="abc"){
+					code="ABC自由選";
+				}
+				imgKfc[code]=url.replace("http:", "https:");//統一https
 			}
 		});
 		return imgKfc;
