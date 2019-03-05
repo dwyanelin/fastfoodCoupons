@@ -17,7 +17,6 @@ class App extends Component{
 		kfcFilterCacheActive:false,
 		kfcIncludeActive:[false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],//toggle button
 		kfcExcludeActive:[false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
-
 		kfcCodeInput:"",
 
 		pizzahutIncludeActive:[false, false, false, false, false, false, false, false],
@@ -462,8 +461,11 @@ class App extends Component{
 	kfcReset=()=>{
 		this.setState({
 			kfcCouponsShow:this.kfcCoupons,
+			kfcFilterExpiredActive:false,
+			kfcFilterCacheActive:false,
 			kfcIncludeActive:[false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
 			kfcExcludeActive:[false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+			kfcCodeInput:"",
 		});
 		this.kfcIncludeFilters=[];
 		this.kfcExcludeFilters=[];
