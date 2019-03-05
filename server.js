@@ -33,7 +33,9 @@ app.get("/getKfcCoupons", async (req, res)=>{
 					description=e.data;
 				}
 			});
-			coupons.push({code, price, description, expireDate});
+			if(!(code.includes("+"))){
+				coupons.push({code, price, description, expireDate});
+			}
 		});
 		return coupons;
 	})
