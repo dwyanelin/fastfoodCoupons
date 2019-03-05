@@ -13,8 +13,12 @@ class App extends Component{
 		dominosCouponsShow:[],
 		napoliCouponsShow:[],
 
+		kfcFilterExpiredActive:false,
+		kfcFilterCacheActive:false,
 		kfcIncludeActive:[false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],//toggle button
 		kfcExcludeActive:[false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+
+		kfcCodeInput:"",
 
 		pizzahutIncludeActive:[false, false, false, false, false, false, false, false],
 		pizzahutExcludeActive:[false, false, false, false, false, false, false, false],
@@ -25,8 +29,8 @@ class App extends Component{
 		imgUrl:"",
 		imgAlt:"",
 	};
-	kfcNames=["炸雞", "蛋塔", "地瓜球", "漢堡", "雞塊", "雞米花", "薯條", "飲品", "炸雞2+", "炸雞桶", "烤雞堡", "咔啦堡", "脆雞堡", "霸王/嫩雞捲", "濃湯"];
-	kfcFilterNames=["炸雞", "蛋塔", "瓜球", "堡", "雞塊", "雞米花", "薯", "飲", "炸雞*", "雞桶", "烤雞堡", "咔啦", "脆雞堡", "霸王", "濃湯"];
+	kfcNames=["炸雞", "蛋塔", "地瓜球", "漢堡", "雞塊", "雞米花", "薯條", "飲品", "炸雞2+", "烤雞堡", "咔啦堡", "脆雞堡", "霸王/嫩雞捲", "濃湯"];
+	kfcFilterNames=["炸雞", "蛋塔", "瓜球", "堡", "雞塊", "雞米花", "薯", "飲", "炸雞*", "烤雞堡", "咔啦", "脆雞堡", "霸王", "濃湯"];
 	pizzahutNames=["雞腿/翅", "鱈魚", "QQ球", "濃湯", "薯星星", "飲料"];
 	pizzahutFilterNames=["腿", "鱈魚", "QQ球", "濃湯", "薯星星", "飲"];
 	kfcCoupons=[];
@@ -85,10 +89,13 @@ class App extends Component{
 			pizzahutCouponsShow,
 			dominosCouponsShow,
 			napoliCouponsShow,
+			kfcFilterExpiredActive,
+			kfcFilterCacheActive,
 			kfcIncludeActive,
 			kfcExcludeActive,
 			pizzahutIncludeActive,
 			pizzahutExcludeActive,
+			kfcCodeInput,
 			imgKfc,
 			imgPizzahut,
 			imgUrl,
@@ -107,7 +114,12 @@ class App extends Component{
 
 					<Route exact path="/" render={()=>(
 						<div style={{display:"flex", flexDirection:"column", alignItems:"center", position:"absolute", top:50}}>
-							<div style={{display:"flex", flexWrap:"wrap", alignItems:"center", marginLeft:10}}>
+							<div style={{display:"flex", flexWrap:"wrap", alignItems:"center", marginLeft:10, marginRight:10}}>
+								<span>過濾：</span>
+								<Button outline color="primary" style={{margin:".1rem .1rem"}} onClick={()=>this.kfcFilterExpired(0)} active={kfcFilterExpiredActive}>未過期</Button>
+								<Button outline color="primary" style={{margin:".1rem .1rem"}} onClick={()=>this.kfcFilterCache(1)} active={kfcFilterCacheActive}>預定快取</Button>
+							</div>
+							<div style={{display:"flex", flexWrap:"wrap", alignItems:"center", marginLeft:10, marginRight:10}}>
 								<span>　我一定要：</span>
 								<Button outline color="primary" style={{margin:".1rem .1rem"}} onClick={()=>this.kfcInclude(0)} active={kfcIncludeActive[0]}>{this.kfcNames[0]}</Button>
 								<Button outline color="primary" style={{margin:".1rem .1rem"}} onClick={()=>this.kfcInclude(1)} active={kfcIncludeActive[1]}>{this.kfcNames[1]}</Button>
@@ -123,9 +135,8 @@ class App extends Component{
 								<Button outline color="primary" style={{margin:".1rem .1rem"}} onClick={()=>this.kfcInclude(11)} active={kfcIncludeActive[11]}>{this.kfcNames[11]}</Button>
 								<Button outline color="primary" style={{margin:".1rem .1rem"}} onClick={()=>this.kfcInclude(12)} active={kfcIncludeActive[12]}>{this.kfcNames[12]}</Button>
 								<Button outline color="primary" style={{margin:".1rem .1rem"}} onClick={()=>this.kfcInclude(13)} active={kfcIncludeActive[13]}>{this.kfcNames[13]}</Button>
-								<Button outline color="primary" style={{margin:".1rem .1rem"}} onClick={()=>this.kfcInclude(14)} active={kfcIncludeActive[14]}>{this.kfcNames[14]}</Button>
 							</div>
-							<div style={{display:"flex", flexWrap:"wrap", alignItems:"center", marginLeft:10}}>
+							<div style={{display:"flex", flexWrap:"wrap", alignItems:"center", marginLeft:10, marginRight:10}}>
 								<span>我一定不要：</span>
 								<Button outline color="secondary" style={{margin:".1rem .1rem"}} onClick={()=>this.kfcExclude(0)} active={kfcExcludeActive[0]}>{this.kfcNames[0]}</Button>
 								<Button outline color="secondary" style={{margin:".1rem .1rem"}} onClick={()=>this.kfcExclude(1)} active={kfcExcludeActive[1]}>{this.kfcNames[1]}</Button>
@@ -141,11 +152,18 @@ class App extends Component{
 								<Button outline color="secondary" style={{margin:".1rem .1rem"}} onClick={()=>this.kfcExclude(11)} active={kfcExcludeActive[11]}>{this.kfcNames[11]}</Button>
 								<Button outline color="secondary" style={{margin:".1rem .1rem"}} onClick={()=>this.kfcExclude(12)} active={kfcExcludeActive[12]}>{this.kfcNames[12]}</Button>
 								<Button outline color="secondary" style={{margin:".1rem .1rem"}} onClick={()=>this.kfcExclude(13)} active={kfcExcludeActive[13]}>{this.kfcNames[13]}</Button>
-								<Button outline color="secondary" style={{margin:".1rem .1rem"}} onClick={()=>this.kfcExclude(14)} active={kfcExcludeActive[14]}>{this.kfcNames[14]}</Button>
 							</div>
-							<div style={{display:"flex", flexWrap:"wrap", alignItems:"center", marginLeft:10}}>
+							<div style={{display:"flex", flexWrap:"wrap", alignItems:"center", marginLeft:10, marginRight:10}}>
 								<span style={{marginRight:10}}>數量：{kfcCouponsShow.length}</span>
 								<Button outline color="primary" style={{margin:".1rem .1rem"}} onClick={this.kfcReset}>重置</Button>
+								<input
+									type="text"
+									name="kfcCodeInput"
+									style={{marginLeft:10, color:"#6c757d", height:38, borderRadius:".25rem", border:"1px solid #6c757d", padding:5}}
+									value={kfcCodeInput}
+									onChange={e=>this.setState({kfcCodeInput:e.target.value}, ()=>this.kfcFiltering())}
+									placeholder="搜尋代碼"
+								/>
 								<span style={{marginLeft:10, marginRight:10, color:"#17a2b8"}}>天藍色可以直接點開圖片</span>
 								<span>來源：</span>
 								<a href="https://www.ptt.cc/bbs/fastfood/M.1526277935.A.DA0.html" target="_blank" rel="noopener noreferrer">ptt置底</a>
@@ -164,7 +182,7 @@ class App extends Component{
 					)}/>
 					<Route path="/pizzahut" render={()=>(
 						<div style={{display:"flex", flexDirection:"column", alignItems:"center", position:"absolute", top:50}}>
-							<div style={{display:"flex", flexWrap:"wrap", alignItems:"center", marginLeft:10}}>
+							<div style={{display:"flex", flexWrap:"wrap", alignItems:"center", marginLeft:10, marginRight:10}}>
 								<span>　我一定要：</span>
 								<Button outline color="primary" style={{margin:".1rem .1rem"}} onClick={()=>this.pizzahutInclude(0)} active={pizzahutIncludeActive[0]}>{this.pizzahutNames[0]}</Button>
 								<Button outline color="primary" style={{margin:".1rem .1rem"}} onClick={()=>this.pizzahutInclude(1)} active={pizzahutIncludeActive[1]}>{this.pizzahutNames[1]}</Button>
@@ -173,7 +191,7 @@ class App extends Component{
 								<Button outline color="primary" style={{margin:".1rem .1rem"}} onClick={()=>this.pizzahutInclude(4)} active={pizzahutIncludeActive[4]}>{this.pizzahutNames[4]}</Button>
 								<Button outline color="primary" style={{margin:".1rem .1rem"}} onClick={()=>this.pizzahutInclude(5)} active={pizzahutIncludeActive[5]}>{this.pizzahutNames[5]}</Button>
 							</div>
-							<div style={{display:"flex", flexWrap:"wrap", alignItems:"center", marginLeft:10}}>
+							<div style={{display:"flex", flexWrap:"wrap", alignItems:"center", marginLeft:10, marginRight:10}}>
 								<span>我一定不要：</span>
 								<Button outline color="secondary" style={{margin:".1rem .1rem"}} onClick={()=>this.pizzahutExclude(0)} active={pizzahutExcludeActive[0]}>{this.pizzahutNames[0]}</Button>
 								<Button outline color="secondary" style={{margin:".1rem .1rem"}} onClick={()=>this.pizzahutExclude(1)} active={pizzahutExcludeActive[1]}>{this.pizzahutNames[1]}</Button>
@@ -182,7 +200,7 @@ class App extends Component{
 								<Button outline color="secondary" style={{margin:".1rem .1rem"}} onClick={()=>this.pizzahutExclude(4)} active={pizzahutExcludeActive[4]}>{this.pizzahutNames[4]}</Button>
 								<Button outline color="secondary" style={{margin:".1rem .1rem"}} onClick={()=>this.pizzahutExclude(5)} active={pizzahutExcludeActive[5]}>{this.pizzahutNames[5]}</Button>
 							</div>
-							<div style={{display:"flex", flexWrap:"wrap", alignItems:"center", marginLeft:10}}>
+							<div style={{display:"flex", flexWrap:"wrap", alignItems:"center", marginLeft:10, marginRight:10}}>
 								<span style={{marginRight:10}}>數量：{pizzahutCouponsShow.length}</span>
 								<Button outline color="primary" style={{margin:".1rem .1rem"}} onClick={this.pizzahutReset}>重置</Button>
 								<span style={{marginLeft:10, marginRight:10, color:"#17a2b8"}}>天藍色可以直接點開圖片</span>
@@ -203,7 +221,7 @@ class App extends Component{
 					)}/>
 					<Route path="/dominos" render={()=>(
 						<div style={{display:"flex", flexDirection:"column", alignItems:"center", position:"absolute", top:50}}>
-							<div style={{display:"flex", flexWrap:"wrap", alignItems:"center", marginLeft:10}}>
+							<div style={{display:"flex", flexWrap:"wrap", alignItems:"center", marginLeft:10, marginRight:10}}>
 								<span style={{marginRight:10}}>數量：{dominosCouponsShow.length}</span>
 							</div>
 							<div style={{display:"flex", flexWrap:"wrap", justifyContent:"center"}}>
@@ -227,7 +245,7 @@ class App extends Component{
 					)}/>
 					<Route path="/napoli" render={()=>(
 						<div style={{display:"flex", flexDirection:"column", alignItems:"center", position:"absolute", top:50}}>
-							<div style={{display:"flex", flexWrap:"wrap", alignItems:"center", marginLeft:10}}>
+							<div style={{display:"flex", flexWrap:"wrap", alignItems:"center", marginLeft:10, marginRight:10}}>
 								<span style={{marginRight:10}}>數量：{napoliCouponsShow.length}</span>
 							</div>
 							<div style={{display:"flex", flexWrap:"wrap", justifyContent:"center"}}>
@@ -255,6 +273,20 @@ class App extends Component{
 	}
 
 	toggleModalImg=(url, code)=>this.setState({imgUrl:url, imgAlt:code, modalImg:!this.state.modalImg});
+
+	kfcFilterExpired=()=>{//過濾表定過期的coupon
+		const {kfcFilterExpiredActive}=this.state;
+		this.setState({kfcFilterExpiredActive:!kfcFilterExpiredActive}, ()=>{//設定按鈕active
+			this.kfcFiltering();//callback kfcFiltering
+		});
+	};
+
+	kfcFilterCache=()=>{//過濾預定快取可用的coupon
+		const {kfcFilterCacheActive}=this.state;
+		this.setState({kfcFilterCacheActive:!kfcFilterCacheActive}, ()=>{//設定按鈕active
+			this.kfcFiltering();//callback kfcFiltering
+		});
+	};
 
 	kfcInclude=index=>{//按kfc一定要按紐
 		const {kfcIncludeActive}=this.state;
@@ -297,17 +329,15 @@ class App extends Component{
 	};
 
 	kfcFiltering=()=>{
+		const {kfcFilterExpiredActive, kfcFilterCacheActive, kfcCodeInput}=this.state;
 		let kfcCouponsShow=[];
 		this.kfcCoupons.forEach(kfcCoupon=>{//要全包含include&&全排除exclude
+			if(!kfcCoupon.code.includes(kfcCodeInput)){
+				return;
+			}
 			let includesAll=this.kfcIncludeFilters.every(kfcIncludeFilter=>{
-				if(kfcIncludeFilter==="炸雞"){
-					return kfcCoupon.description.includes(kfcIncludeFilter)||kfcCoupon.description.includes("雞桶");
-				}
-				else if(kfcIncludeFilter==="飲"){
+				if(kfcIncludeFilter==="飲"){
 					return kfcCoupon.description.includes(kfcIncludeFilter)||kfcCoupon.description.includes("義式")||kfcCoupon.description.includes("紅茶");
-				}
-				else if(kfcIncludeFilter==="炸雞*"){
-					return kfcCoupon.description.includes(kfcIncludeFilter)||kfcCoupon.description.includes("雞桶");
 				}
 				else if(kfcIncludeFilter==="霸王"){
 					return kfcCoupon.description.includes(kfcIncludeFilter)||kfcCoupon.description.includes("嫩雞");
@@ -317,14 +347,8 @@ class App extends Component{
 				}
 			});
 			let excludesAll=this.kfcExcludeFilters.every(kfcExcludeFilter=>{
-				if(kfcExcludeFilter==="炸雞"){
-					return !kfcCoupon.description.includes(kfcExcludeFilter)&&!kfcCoupon.description.includes("雞桶");
-				}
-				else if(kfcExcludeFilter==="飲"){
+				if(kfcExcludeFilter==="飲"){
 					return !kfcCoupon.description.includes(kfcExcludeFilter)&&!kfcCoupon.description.includes("義式")&&!kfcCoupon.description.includes("紅茶");
-				}
-				else if(kfcExcludeFilter==="炸雞*"){
-					return !kfcCoupon.description.includes(kfcExcludeFilter)&&!kfcCoupon.description.includes("雞桶");
 				}
 				else if(kfcExcludeFilter==="霸王"){
 					return !kfcCoupon.description.includes(kfcExcludeFilter)&&!kfcCoupon.description.includes("嫩雞");
@@ -333,8 +357,31 @@ class App extends Component{
 					return !kfcCoupon.description.includes(kfcExcludeFilter);
 				}
 			});
-			if(includesAll&&excludesAll){
-				kfcCouponsShow.push(kfcCoupon);
+			if(kfcFilterExpiredActive){//用.expireDate過濾
+				let d=new Date();
+				let couponD=new Date(kfcCoupon.expireDate.replace("+", ""));
+				if(kfcFilterCacheActive){
+					if(includesAll&&excludesAll&&(kfcCoupon.expireDate.includes("無期限")||couponD>=d)&&kfcCoupon.code[0]!=="1"){
+						kfcCouponsShow.push(kfcCoupon);
+					}
+				}
+				else{
+					if(includesAll&&excludesAll&&(kfcCoupon.expireDate.includes("無期限")||couponD>=d)){
+						kfcCouponsShow.push(kfcCoupon);
+					}
+				}
+			}
+			else{
+				if(kfcFilterCacheActive){
+					if(includesAll&&excludesAll&&kfcCoupon.code[0]!=="1"){
+						kfcCouponsShow.push(kfcCoupon);
+					}
+				}
+				else{
+					if(includesAll&&excludesAll){
+						kfcCouponsShow.push(kfcCoupon);
+					}
+				}
 			}
 		});
 		this.setState({kfcCouponsShow});
