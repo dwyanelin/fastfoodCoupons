@@ -27,7 +27,7 @@ app.get("/getKfcCoupons", async (req, res)=>{
 					});
 				}
 				else if(e.attribs&&e.attribs.class==="vldt"){
-					expireDate=e.children[0].children[0].data;
+					expireDate=e.children[0].children[e.children[0].children.length-1].data;
 				}
 				else if(e.type==="text"){
 					description=e.data;
