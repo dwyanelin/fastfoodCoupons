@@ -19,8 +19,10 @@ class App extends Component{
 		kfcExcludeActive:[false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
 		kfcCodeInput:"",
 
+		pizzahutFilterExpiredActive:false,
 		pizzahutIncludeActive:[false, false, false, false, false, false, false, false],
 		pizzahutExcludeActive:[false, false, false, false, false, false, false, false],
+		pizzahutCodeInput:"",
 
 		imgKfc:{},
 		imgPizzahut:{},
@@ -88,13 +90,18 @@ class App extends Component{
 			pizzahutCouponsShow,
 			dominosCouponsShow,
 			napoliCouponsShow,
+
 			kfcFilterExpiredActive,
 			kfcFilterCacheActive,
 			kfcIncludeActive,
 			kfcExcludeActive,
+			kfcCodeInput,
+
+			pizzahutFilterExpiredActive,
 			pizzahutIncludeActive,
 			pizzahutExcludeActive,
-			kfcCodeInput,
+			pizzahutCodeInput,
+
 			imgKfc,
 			imgPizzahut,
 			imgUrl,
@@ -182,6 +189,10 @@ class App extends Component{
 					<Route path="/pizzahut" render={()=>(
 						<div style={{display:"flex", flexDirection:"column", alignItems:"center", position:"absolute", top:50}}>
 							<div style={{display:"flex", flexWrap:"wrap", alignItems:"center", marginLeft:10, marginRight:10}}>
+								<span>過濾：</span>
+								<Button outline color="primary" style={{margin:".1rem .1rem"}} onClick={()=>this.pizzahutFilterExpired(0)} active={pizzahutFilterExpiredActive}>未過期</Button>
+							</div>
+							<div style={{display:"flex", flexWrap:"wrap", alignItems:"center", marginLeft:10, marginRight:10}}>
 								<span>　我一定要：</span>
 								<Button outline color="primary" style={{margin:".1rem .1rem"}} onClick={()=>this.pizzahutInclude(0)} active={pizzahutIncludeActive[0]}>{this.pizzahutNames[0]}</Button>
 								<Button outline color="primary" style={{margin:".1rem .1rem"}} onClick={()=>this.pizzahutInclude(1)} active={pizzahutIncludeActive[1]}>{this.pizzahutNames[1]}</Button>
@@ -202,6 +213,14 @@ class App extends Component{
 							<div style={{display:"flex", flexWrap:"wrap", alignItems:"center", marginLeft:10, marginRight:10}}>
 								<span style={{marginRight:10}}>數量：{pizzahutCouponsShow.length}</span>
 								<Button outline color="primary" style={{margin:".1rem .1rem"}} onClick={this.pizzahutReset}>重置</Button>
+								<input
+									type="text"
+									name="pizzahutCodeInput"
+									style={{marginLeft:10, color:"#6c757d", height:38, borderRadius:".25rem", border:"1px solid #6c757d", padding:5}}
+									value={pizzahutCodeInput}
+									onChange={e=>this.setState({pizzahutCodeInput:e.target.value}, ()=>this.pizzahutFiltering())}
+									placeholder="搜尋代碼"
+								/>
 								<span style={{marginLeft:10, marginRight:10, color:"#17a2b8"}}>天藍色可以直接點開圖片</span>
 								<span>來源：</span>
 								<a href="https://www.ptt.cc/bbs/fastfood/M.1526277935.A.DA0.html" target="_blank" rel="noopener noreferrer">ptt置底</a>
@@ -336,7 +355,7 @@ class App extends Component{
 			}
 			let includesAll=this.kfcIncludeFilters.every(kfcIncludeFilter=>{
 				if(kfcIncludeFilter==="飲"){
-					return kfcCoupon.description.includes(kfcIncludeFilter)||kfcCoupon.description.includes("義式")||kfcCoupon.description.includes("紅茶");
+					return kfcCoupon.description.includes(kfcIncludeFilter)||kfcCoupon.description.includes("義式")||kfcCoupon.description.includes("紅茶")||kfcCoupon.description.includes("可");
 				}
 				else if(kfcIncludeFilter==="霸王"){
 					return kfcCoupon.description.includes(kfcIncludeFilter)||kfcCoupon.description.includes("嫩雞");
@@ -347,7 +366,7 @@ class App extends Component{
 			});
 			let excludesAll=this.kfcExcludeFilters.every(kfcExcludeFilter=>{
 				if(kfcExcludeFilter==="飲"){
-					return !kfcCoupon.description.includes(kfcExcludeFilter)&&!kfcCoupon.description.includes("義式")&&!kfcCoupon.description.includes("紅茶");
+					return !kfcCoupon.description.includes(kfcExcludeFilter)&&!kfcCoupon.description.includes("義式")&&!kfcCoupon.description.includes("紅茶")&&!kfcCoupon.description.includes("可");
 				}
 				else if(kfcExcludeFilter==="霸王"){
 					return !kfcCoupon.description.includes(kfcExcludeFilter)&&!kfcCoupon.description.includes("嫩雞");
@@ -384,6 +403,13 @@ class App extends Component{
 			}
 		});
 		this.setState({kfcCouponsShow});
+	};
+
+	pizzahutFilterExpired=()=>{//過濾表定過期的coupon
+		const {pizzahutFilterExpiredActive}=this.state;
+		this.setState({pizzahutFilterExpiredActive:!pizzahutFilterExpiredActive}, ()=>{//設定按鈕active
+			this.pizzahutFiltering();//callback pizzahutFiltering
+		});
 	};
 
 	pizzahutInclude=index=>{//按pizzahut一定要按紐
@@ -427,8 +453,12 @@ class App extends Component{
 	};
 
 	pizzahutFiltering=()=>{
+		const {pizzahutFilterExpiredActive, pizzahutCodeInput}=this.state;
 		let pizzahutCouponsShow=[];
 		this.pizzahutCoupons.forEach(pizzahutCoupon=>{//要全包含include&&全排除exclude
+			if(!pizzahutCoupon.code.includes(pizzahutCodeInput)){
+				return;
+			}
 			let includesAll=this.pizzahutIncludeFilters.every(pizzahutIncludeFilter=>{
 				if(pizzahutIncludeFilter==="腿"){
 					return pizzahutCoupon.description.includes(pizzahutIncludeFilter)||pizzahutCoupon.description.includes("翅");
@@ -451,8 +481,21 @@ class App extends Component{
 					return !pizzahutCoupon.description.includes(pizzahutExcludeFilter);
 				}
 			});
-			if(includesAll&&excludesAll){
-				pizzahutCouponsShow.push(pizzahutCoupon);
+			if(pizzahutFilterExpiredActive){//用.expireDate過濾
+				if(pizzahutCoupon.expireDate===undefined){
+					pizzahutCouponsShow.push(pizzahutCoupon);
+					return;
+				}
+				let d=new Date();
+				let couponD=new Date(pizzahutCoupon.expireDate.replace("+", "").replace("~", ""));
+				if(includesAll&&excludesAll&&(pizzahutCoupon.expireDate.includes("無期限")||couponD>=d)){
+					pizzahutCouponsShow.push(pizzahutCoupon);
+				}
+			}
+			else{
+				if(includesAll&&excludesAll){
+					pizzahutCouponsShow.push(pizzahutCoupon);
+				}
 			}
 		});
 		this.setState({pizzahutCouponsShow});
@@ -474,8 +517,10 @@ class App extends Component{
 	pizzahutReset=()=>{
 		this.setState({
 			pizzahutCouponsShow:this.pizzahutCoupons,
+			pizzahutFilterExpiredActive:false,
 			pizzahutIncludeActive:[false, false, false, false, false, false, false, false],
 			pizzahutExcludeActive:[false, false, false, false, false, false, false, false],
+			pizzahutCodeInput:"",
 		});
 		this.pizzahutIncludeFilters=[];
 		this.pizzahutExcludeFilters=[];
