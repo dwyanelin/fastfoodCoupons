@@ -63,13 +63,15 @@ app.get("/getPizzahutCoupons", async (req, res)=>{
 						});
 					}
 					else if(e.attribs&&e.attribs.class==="vldt"){
-						expireDate=e.children[0].children[0]&&e.children[0].children[0].data;
+						expireDate=e.children[0].children[e.children[0].children.length-1]&&e.children[0].children[e.children[0].children.length-1].data;
 					}
 					else if(e.type==="text"){
 						description=e.data;
 					}
 				});
-				coupons.push({code, price, description, expireDate});
+				if(!(code.includes("+"))){
+					coupons.push({code, price, description, expireDate});
+				}
 			}
 		});
 		return coupons;
