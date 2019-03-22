@@ -251,9 +251,6 @@ app.get("/getImg", async (req, res)=>{
 		$("#images", body)[0].children.forEach(e=>{
 			if(e.name==="img"){
 				let url=e.attribs.lnk.trim();//刪除前後空白換行
-				if(!url.includes("http")){
-					url="https://kfc.2dim.space/"+url;
-				}
 				if(!url.includes("i.imgur")){
 					url=url.replace("imgur", "i.imgur");//img一致化
 				}
