@@ -363,6 +363,9 @@ class App extends Component{
 				else if(kfcIncludeFilter==="炸雞*"){
 					return kfcCoupon.description.includes(kfcIncludeFilter)||kfcCoupon.description.includes("炸雞x");
 				}
+				else if(kfcIncludeFilter==="蛋塔*"){
+					return kfcCoupon.description.includes(kfcIncludeFilter)||kfcCoupon.description.includes("蛋撻");
+				}
 				else{
 					return kfcCoupon.description.includes(kfcIncludeFilter);
 				}
@@ -376,6 +379,9 @@ class App extends Component{
 				}
 				else if(kfcExcludeFilter==="炸雞*"){
 					return !kfcCoupon.description.includes(kfcExcludeFilter)&&!kfcCoupon.description.includes("炸雞x");
+				}
+				else if(kfcExcludeFilter==="蛋塔"){
+					return !kfcCoupon.description.includes(kfcExcludeFilter)&&!kfcCoupon.description.includes("蛋撻");
 				}
 				else{
 					return !kfcCoupon.description.includes(kfcExcludeFilter);
