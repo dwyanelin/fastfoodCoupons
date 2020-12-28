@@ -363,7 +363,7 @@ class App extends Component{
 				else if(kfcIncludeFilter==="炸雞*"){
 					return kfcCoupon.description.includes(kfcIncludeFilter)||kfcCoupon.description.includes("炸雞x");
 				}
-				else if(kfcIncludeFilter==="蛋塔*"){
+				else if(kfcIncludeFilter==="蛋塔"){
 					return kfcCoupon.description.includes(kfcIncludeFilter)||kfcCoupon.description.includes("蛋撻");
 				}
 				else{
